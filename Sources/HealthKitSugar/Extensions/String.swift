@@ -2,8 +2,11 @@ import HealthKit
 
 extension String {
     func applySkinTone(_ skinTone: EmojiSkinTone) -> String {
-        let modifier = skinTone.modifier
-        guard modifier.count == 1 && self.count > 0 else { return self }
+        guard let modifier = skinTone.modifier,
+              modifier.count == 1 && self.count > 0 else {
+            return self
+        }
+        
         let minTone = Unicode.Scalar(0x1F3FB)!
         let maxTone = Unicode.Scalar(0x1F3FF)!
         guard let toneChar = modifier.unicodeScalars.first, minTone...maxTone ~= toneChar else { return self }
@@ -17,6 +20,10 @@ extension String {
         scalars.insert(toneChar, at: 1)
 
         return String(String.UnicodeScalarView(scalars))
+    }
+    
+    var supportsSkinTone: Bool {
+        var 
     }
 }
 

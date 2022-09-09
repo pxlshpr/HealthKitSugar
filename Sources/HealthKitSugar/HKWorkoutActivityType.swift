@@ -1,11 +1,101 @@
 import HealthKit
 
+extension HKWorkoutActivityType: CaseIterable {
+    public static var allCases: [HKWorkoutActivityType] {
+        [
+            .americanFootball,
+            .archery,
+            .australianFootball,
+            .badminton,
+            .baseball,
+            .basketball,
+            .bowling,
+            .boxing,
+            .climbing,
+            .crossTraining,
+            .curling,
+            .cycling,
+            .dance,
+            .danceInspiredTraining,
+            .elliptical,
+            .equestrianSports,
+            .fencing,
+            .fishing,
+            .functionalStrengthTraining,
+            .golf,
+            .gymnastics,
+            .handball,
+            .hiking,
+            .hockey,
+            .hunting,
+            .lacrosse,
+            .martialArts,
+            .mindAndBody,
+            .mixedMetabolicCardioTraining,
+            .paddleSports,
+            .play,
+            .preparationAndRecovery,
+            .racquetball,
+            .rowing,
+            .rugby,
+            .running,
+            .sailing,
+            .skatingSports,
+            .snowSports,
+            .soccer,
+            .softball,
+            .squash,
+            .stairClimbing,
+            .surfingSports,
+            .swimming,
+            .tableTennis,
+            .tennis,
+            .trackAndField,
+            .traditionalStrengthTraining,
+            .volleyball,
+            .walking,
+            .waterFitness,
+            .waterPolo,
+            .waterSports,
+            .wrestling,
+            .yoga,
+            .barre,
+            .coreTraining,
+            .crossCountrySkiing,
+            .downhillSkiing,
+            .flexibility,
+            .highIntensityIntervalTraining,
+            .jumpRope,
+            .kickboxing,
+            .pilates,
+            .snowboarding,
+            .stairs,
+            .stepTraining,
+            .wheelchairWalkPace,
+            .wheelchairRunPace,
+            .taiChi,
+            .mixedCardio,
+            .handCycling,
+            .discSports,
+            .fitnessGaming,
+            .cricket,
+            .cardioDance,
+            .socialDance,
+            .pickleball,
+            .cooldown,
+            .swimBikeRun,
+            .transition,
+            .other
+        ]
+    }
+}
+
 extension HKWorkoutActivityType {
     
     /*
      Simple mapping of available workout types to a human readable name.
      */
-    var name: String {
+    public var name: String {
         switch self {
         case .americanFootball:                 return "American Football"
         case .archery:                          return "Archery"
@@ -118,7 +208,11 @@ extension HKWorkoutActivityType {
     /*
      Mapping of available activity types to emojis, where an appropriate gender-agnostic emoji is available.
      */
-    var associatedEmoji: String? {
+    public var emoji: String? {
+        emoji()
+    }
+    
+    public var genderAgnosticEmoji: String? {
         switch self {
         case .americanFootball:             return "🏈"
         case .archery:                      return "🏹"
@@ -172,14 +266,15 @@ extension HKWorkoutActivityType {
         }
     }
     
-    func associatedEmoji(gender: EmojiGender = .neutral, skinTone: EmojiSkinTone? = nil) -> String? {
-        guard let emoji = associatedEmoji(gender: gender) else {
+    public func emoji(for gender: EmojiGender = .neutral, withSkinTone skinTone: EmojiSkinTone? = nil) -> String? {
+        guard let emoji = emoji(for: gender) else {
             return nil
         }
-        guard let skinTone = skinTone else {
+        guard emoji.supportsSkinTone, let skinTone = skinTone else {
             return emoji
         }
-        return emoji.applySkinTone(skinTone)
+        let string = emoji.applySkinTone(skinTone)
+        return String(string.prefix(1))
     }
     
     /*
@@ -187,7 +282,7 @@ extension HKWorkoutActivityType {
      
      If a gender neutral symbol is available this simply returns the value of `associatedEmoji`.
      */
-    func associatedEmoji(gender: EmojiGender = .neutral) -> String? {
+    public func emoji(for gender: EmojiGender = .neutral) -> String? {
         switch self {
         case .climbing:
             switch gender {
@@ -263,7 +358,7 @@ extension HKWorkoutActivityType {
             }
             
             // Catch-all
-        default:                            return associatedEmoji
+        default:                            return genderAgnosticEmoji
         }
     }
 }
