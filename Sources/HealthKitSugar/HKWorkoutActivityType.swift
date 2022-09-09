@@ -386,9 +386,9 @@ extension HKWorkoutActivityType {
             }
         case .coreTraining:
             switch gender {
-            case .female:                   return "🧎‍♀️"
-            case .neutral:                  return "🧎"
-            case .male:                     return "🧎‍♂️"
+            case .female:                   return "🙇‍♀️"
+            case .neutral:                  return "🙇"
+            case .male:                     return "🙇‍♂️"
             }
         case .walking:
             switch gender {
