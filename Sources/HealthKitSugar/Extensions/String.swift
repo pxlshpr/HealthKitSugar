@@ -1,6 +1,6 @@
 import HealthKit
 
-extension String {
+public extension String {
     func applySkinTone(_ skinTone: EmojiSkinTone) -> String {
         guard let modifier = skinTone.modifier,
               modifier.count == 1 && self.count > 0 else {
@@ -23,11 +23,14 @@ extension String {
     }
     
     var supportsSkinTone: Bool {
-        var 
+        guard count == 1 else {
+            return false
+        }
+        return unicodeScalars.first?.properties.isEmojiModifierBase ?? false
     }
 }
 
-extension String {
+public extension String {
     var workoutActivityType: HKWorkoutActivityType? {
         .archery
     }

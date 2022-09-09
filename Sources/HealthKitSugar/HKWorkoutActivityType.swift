@@ -218,23 +218,17 @@ extension HKWorkoutActivityType {
         case .archery:                      return "🏹"
         case .badminton:                    return "🏸"
         case .baseball:                     return "⚾️"
-        case .basketball:                   return "🏀"
         case .bowling:                      return "🎳"
         case .boxing:                       return "🥊"
         case .curling:                      return "🥌"
-        case .cycling:                      return "🚲"
-        case .equestrianSports:             return "🏇"
         case .fencing:                      return "🤺"
         case .fishing:                      return "🎣"
-        case .functionalStrengthTraining:   return "💪"
-        case .golf:                         return "⛳️"
         case .hiking:                       return "🥾"
         case .hockey:                       return "🏒"
         case .lacrosse:                     return "🥍"
         case .martialArts:                  return "🥋"
         case .mixedMetabolicCardioTraining: return "❤️"
         case .paddleSports:                 return "🛶"
-        case .rowing:                       return "🛶"
         case .rugby:                        return "🏉"
         case .sailing:                      return "⛵️"
         case .skatingSports:                return "⛸"
@@ -243,9 +237,9 @@ extension HKWorkoutActivityType {
         case .softball:                     return "🥎"
         case .tableTennis:                  return "🏓"
         case .tennis:                       return "🎾"
-        case .traditionalStrengthTraining:  return "🏋️‍♂️"
         case .volleyball:                   return "🏐"
-        case .waterFitness, .waterSports:   return "💧"
+        case .waterFitness:                 return "💧"
+        case .waterSports:                  return "🚤"
             
             // iOS 10
         case .barre:                        return "🥿"
@@ -262,7 +256,21 @@ extension HKWorkoutActivityType {
         case .fitnessGaming:                return "🎮"
             
             // Catch-all
-        default:                            return nil
+        case .australianFootball:           return "🏉"
+            
+        case .cricket:                      return "🏏"
+        case .elliptical:                   return "❤️"
+        case .hunting:                      return "🏹"
+        case .racquetball:                  return "❤️"
+        case .squash:                       return "❤️"
+        case .highIntensityIntervalTraining:return "❤️"
+        case .jumpRope:                     return "❤️"
+        case .handCycling:                  return "🚲"
+        case .pickleball:                   return "🏓"
+        case .swimBikeRun:                  return "❤️"
+        case .transition:                   return "❤️"
+
+        @unknown default:                   return nil
         }
     }
     
@@ -273,8 +281,7 @@ extension HKWorkoutActivityType {
         guard emoji.supportsSkinTone, let skinTone = skinTone else {
             return emoji
         }
-        let string = emoji.applySkinTone(skinTone)
-        return String(string.prefix(1))
+        return emoji.applySkinTone(skinTone)
     }
     
     /*
@@ -290,11 +297,43 @@ extension HKWorkoutActivityType {
             case .neutral:                  return "🧗"
             case .male:                     return "🧗‍♂️"
             }
-        case .dance, .danceInspiredTraining:
+        case .basketball:
             switch gender {
-            case .female:                   return "👯‍♀️"
+            case .female:                   return "⛹️‍♀️"
+            case .neutral:                  return "⛹️"
+            case .male:                     return "⛹️‍♂️"
+            }
+        case .cycling:
+            switch gender {
+            case .female:                   return "🚴‍♀️"
+            case .neutral:                  return "🚴"
+            case .male:                     return "🚴‍♂️"
+            }
+        case .dance, .danceInspiredTraining, .cardioDance, .socialDance:
+            switch gender {
+            case .female:                   return "💃"
             case .neutral:                  return "👯"
-            case .male:                     return "👯‍♂️"
+            case .male:                     return "🕺"
+            }
+        case .equestrianSports:
+            return "🏇"
+        case .golf:
+            switch gender {
+            case .female:                   return "🏌️‍♀️"
+            case .neutral:                  return "🏌️"
+            case .male:                     return "🏌️‍♂️"
+            }
+        case .traditionalStrengthTraining:
+            switch gender {
+            case .female:                   return "🏋️‍♀️"
+            case .neutral:                  return "🏋️"
+            case .male:                     return "🏋️‍♂️"
+            }
+        case .rowing:
+            switch gender {
+            case .female:                   return "🚣‍♀️"
+            case .neutral:                  return "🚣"
+            case .male:                     return "🚣‍♂️"
             }
         case .gymnastics:
             switch gender {
@@ -302,25 +341,25 @@ extension HKWorkoutActivityType {
             case .neutral:                  return "🤸"
             case .male:                     return "🤸‍♂️"
             }
-        case .handball:
+        case .handball, .play:
             switch gender {
             case .female:                   return "🤾‍♀️"
             case .neutral:                  return "🤾"
             case .male:                     return "🤾‍♂️"
             }
-        case .mindAndBody, .yoga, .flexibility:
+        case .mindAndBody, .yoga, .taiChi:
             switch gender {
             case .female:                   return "🧘‍♀️"
             case .neutral:                  return "🧘"
             case .male:                     return "🧘‍♂️"
             }
-        case .preparationAndRecovery:
+        case .preparationAndRecovery, .flexibility, .cooldown, .pilates:
             switch gender {
             case .female:                   return "🙆‍♀️"
             case .neutral:                  return "🙆"
             case .male:                     return "🙆‍♂️"
             }
-        case .running:
+        case .running, .trackAndField:
             switch gender {
             case .female:                   return "🏃‍♀️"
             case .neutral:                  return "🏃"
@@ -332,11 +371,21 @@ extension HKWorkoutActivityType {
             case .neutral:                  return "🏄"
             case .male:                     return "🏄‍♂️"
             }
+        case .stairClimbing, .stairs, .stepTraining:
+            return "🦵"
+        case .crossTraining, .functionalStrengthTraining:
+            return "💪"
         case .swimming:
             switch gender {
             case .female:                   return "🏊‍♀️"
             case .neutral:                  return "🏊"
             case .male:                     return "🏊‍♂️"
+            }
+        case .coreTraining:
+            switch gender {
+            case .female:                   return "🧎‍♀️"
+            case .neutral:                  return "🧎"
+            case .male:                     return "🧎‍♂️"
             }
         case .walking:
             switch gender {
@@ -356,9 +405,18 @@ extension HKWorkoutActivityType {
             case .neutral:                  return "🤼"
             case .male:                     return "🤼‍♂️"
             }
-            
-            // Catch-all
-        default:                            return genderAgnosticEmoji
+        case .wheelchairRunPace, .wheelchairWalkPace:
+            switch gender {
+            case .female:                   return "👩‍🦽"
+            case .neutral:                  return "🧑‍🦽"
+            case .male:                     return "👨‍🦽"
+            }
+        default:
+            switch gender {
+            case .female:                   return "🏃‍♀️"
+            case .neutral:                  return "🏃"
+            case .male:                     return "🏃‍♂️"
+            }
         }
     }
 }
