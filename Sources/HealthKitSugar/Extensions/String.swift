@@ -1,6 +1,23 @@
 import HealthKit
 
 public extension String {
+    var workoutActivityType: HKWorkoutActivityType? {
+        if self == "Traditional Strength Training" {
+            return .traditionalStrengthTraining
+        }
+        for activityType in HKWorkoutActivityType.allCases {
+            if self == activityType.name
+                || self == "Other: \(activityType.rawValue)"
+            {
+                return activityType
+            }
+        }
+        return nil
+    }
+}
+
+//TODO: ➡️ Move to SwiftSugar
+public extension String {
     func applySkinTone(_ skinTone: EmojiSkinTone) -> String {
         guard let modifier = skinTone.modifier,
               modifier.count == 1 && self.count > 0 else {
@@ -27,11 +44,5 @@ public extension String {
             return false
         }
         return unicodeScalars.first?.properties.isEmojiModifierBase ?? false
-    }
-}
-
-public extension String {
-    var workoutActivityType: HKWorkoutActivityType? {
-        .archery
     }
 }

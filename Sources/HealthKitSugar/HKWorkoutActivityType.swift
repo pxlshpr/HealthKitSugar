@@ -15,8 +15,8 @@ extension HKWorkoutActivityType: CaseIterable {
             .crossTraining,
             .curling,
             .cycling,
-            .dance,
-            .danceInspiredTraining,
+//            .dance,
+//            .danceInspiredTraining,
             .elliptical,
             .equestrianSports,
             .fencing,
@@ -31,7 +31,7 @@ extension HKWorkoutActivityType: CaseIterable {
             .lacrosse,
             .martialArts,
             .mindAndBody,
-            .mixedMetabolicCardioTraining,
+//            .mixedMetabolicCardioTraining,
             .paddleSports,
             .play,
             .preparationAndRecovery,
@@ -191,7 +191,7 @@ extension HKWorkoutActivityType {
             
             // Catch-all
         @unknown default:                       return "Other"
-            //        @unknown default:                   return "Other: \(self.rawValue)"
+//        @unknown default:                   return "Other: \(self.rawValue)"
         }
     }
     
@@ -269,8 +269,11 @@ extension HKWorkoutActivityType {
         case .pickleball:                   return "🏓"
         case .swimBikeRun:                  return "❤️"
         case .transition:                   return "❤️"
-
-        @unknown default:                   return nil
+        
+        case .basketball, .climbing, .crossTraining, .cycling, .dance, .danceInspiredTraining, .equestrianSports, .functionalStrengthTraining, .golf, .gymnastics, .handball, .mindAndBody, .play, .preparationAndRecovery, .rowing, .running, .stairClimbing, .surfingSports, .swimming, .trackAndField, .traditionalStrengthTraining, .walking, .waterPolo, .wrestling, .yoga, .coreTraining, .flexibility, .pilates, .stairs, .stepTraining, .wheelchairWalkPace, .wheelchairRunPace, .taiChi, .cardioDance, .socialDance, .cooldown, .other:
+            return nil
+        @unknown default:
+            return nil
         }
     }
     
@@ -412,11 +415,12 @@ extension HKWorkoutActivityType {
             case .male:                     return "👨‍🦽"
             }
         default:
-            switch gender {
-            case .female:                   return "🏃‍♀️"
-            case .neutral:                  return "🏃"
-            case .male:                     return "🏃‍♂️"
-            }
+            return genderAgnosticEmoji
+//            switch gender {
+//            case .female:                   return "🏃‍♀️"
+//            case .neutral:                  return "🏃"
+//            case .male:                     return "🏃‍♂️"
+//            }
         }
     }
 }
