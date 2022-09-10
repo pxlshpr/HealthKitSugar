@@ -277,11 +277,70 @@ extension HKWorkoutActivityType {
         }
     }
     
-    public func emoji(for gender: EmojiGender = .neutral, withSkinTone skinTone: EmojiSkinTone? = nil) -> String? {
+    public func hardcodedEmoji(for gender: EmojiGender = .neutral, withSkinTone skinTone: EmojiSkinTone = .none) -> String? {
+        switch self {
+        case .traditionalStrengthTraining:
+            switch gender {
+            case .male:
+                switch skinTone {
+                case .none:
+                    return "🏋️‍♂️"
+                case .light:
+                    return "🏋🏻‍♂️"
+                case .mediumLight:
+                    return "🏋🏼‍♂️"
+                case .medium:
+                    return "🏋🏽‍♂️"
+                case .mediumDark:
+                    return "🏋🏾‍♂️"
+                case .dark:
+                    return "🏋🏿‍♂️"
+                }
+            case .neutral:
+                switch skinTone {
+                case .none:
+                    return "🏋️"
+                case .light:
+                    return "🏋🏻"
+                case .mediumLight:
+                    return "🏋🏼"
+                case .medium:
+                    return "🏋🏽"
+                case .mediumDark:
+                    return "🏋🏾"
+                case .dark:
+                    return "🏋🏿"
+                }
+            case .female:
+                switch skinTone {
+                case .none:
+                    return "🏋️‍♀️"
+                case .light:
+                    return "🏋🏻‍♀️"
+                case .mediumLight:
+                    return "🏋🏼‍♀️"
+                case .medium:
+                    return "🏋🏽‍♀️"
+                case .mediumDark:
+                    return "🏋🏾‍♀️"
+                case .dark:
+                    return "🏋🏿‍♀️"
+                }
+            }
+        default:
+            return nil
+        }
+    }
+    
+    public func emoji(for gender: EmojiGender = .neutral, withSkinTone skinTone: EmojiSkinTone = .none) -> String? {
+        if let emoji = hardcodedEmoji(for: gender, withSkinTone: skinTone) {
+            return emoji
+        }
+        
         guard let emoji = emoji(for: gender) else {
             return nil
         }
-        guard emoji.supportsSkinTone, let skinTone = skinTone else {
+        guard emoji.supportsSkinTone else {
             return emoji
         }
         return emoji.applySkinTone(skinTone)
@@ -326,12 +385,12 @@ extension HKWorkoutActivityType {
             case .neutral:                  return "🏌️"
             case .male:                     return "🏌️‍♂️"
             }
-        case .traditionalStrengthTraining:
-            switch gender {
-            case .female:                   return "🏋️‍♀️"
-            case .neutral:                  return "🏋️"
-            case .male:                     return "🏋️‍♂️"
-            }
+//        case .traditionalStrengthTraining:
+//            switch gender {
+//            case .female:                   return "🏋️‍♀️"
+//            case .neutral:                  return "🏋️"
+//            case .male:                     return "🏋️‍♂️"
+//            }
         case .rowing:
             switch gender {
             case .female:                   return "🚣‍♀️"
